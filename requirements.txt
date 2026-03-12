@@ -1,6 +1,6 @@
 yfinance
 pandas
 pyspark
-streamlit
+streamlit==1.21
 plotly
 altair==4.2.2
