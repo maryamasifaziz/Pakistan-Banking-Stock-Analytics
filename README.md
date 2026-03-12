@@ -18,7 +18,7 @@ Automated end-to-end pipeline tracking 20 Pakistani banks on PSX — ingesting 5
 
 ## 🚀 Live Demo
 
-[View Live Dashboard](YOUR_LIVE_DASHBOARD_LINK)
+[View Live Dashboard](https://pakistan-banking-stock-analytics.streamlit.app/)
 
 ---
 
