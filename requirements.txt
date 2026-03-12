@@ -3,3 +3,4 @@ pandas
 pyspark
 streamlit
 plotly
+altair
