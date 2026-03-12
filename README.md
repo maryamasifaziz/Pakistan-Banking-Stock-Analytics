@@ -6,11 +6,11 @@ Automated end-to-end pipeline tracking 20 Pakistani banks on PSX — ingesting 5
 
 ## 📸 Screenshots
 
-![Dashboard Screenshot 1](dashboard1.png) 
-![Dashboard Screenshot 1](dashboard2.png)  
-![Dashboard Screenshot 1](dashboard3.png)  
-![Dashboard Screenshot 1](dashboard4.png)  
-![Dashboard Screenshot 1](dashboard5.png)  
+![Dashboard Screenshot 1](images/dashboard1.png) 
+![Dashboard Screenshot 1](images/dashboard2.png)  
+![Dashboard Screenshot 1](images/dashboard3.png)  
+![Dashboard Screenshot 1](images/dashboard4.png)  
+![Dashboard Screenshot 1](images/dashboard5.png)  
 
 
 
