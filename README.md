@@ -117,8 +117,8 @@ Pipeline runs automatically every day at 11PM PKT via GitHub Actions — fetches
 ---
 
 ## 👤 Author
-Maryam Asif  
-🎓 FAST NUCES 
+Maryam Asif   
+🎓 FAST NUCES   
 🔗 LinkedIn | GitHub
 
 ---
