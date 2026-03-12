@@ -3,4 +3,4 @@ pandas
 pyspark
 streamlit
 plotly
-altair
+altair.vegalite.v4
