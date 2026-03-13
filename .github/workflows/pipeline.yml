@@ -61,7 +61,7 @@ jobs:
           for attempt in 1 2 3; do
             echo "Attempt $attempt: fetch + rebase onto origin/main"
             git fetch origin main
-            git rebase --no-edit origin/main || { echo "Rebase failed (conflict). Aborting."; exit 1; }
+            GIT_EDITOR=true git rebase origin/main || { echo "Rebase failed (conflict). Aborting."; exit 1; }
 
             echo "Attempt $attempt: pushing to main"
             if git push origin HEAD:main; then
