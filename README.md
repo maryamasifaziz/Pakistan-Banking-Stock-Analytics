@@ -1,6 +1,6 @@
 # 🏦 Pakistan Banking Stock Analytics
 
-> **Automated end-to-end pipeline tracking 20 Pakistani banks on PSX — ingesting 5 years of stock data, transforming with PySpark, and visualizing insights via Streamlit dashboard with daily GitHub Actions automation.**
+> **Automated end-to-end pipeline tracking 20 Pakistani banks on PSX - ingesting 5 years of stock data, transforming with PySpark, and visualizing insights via Streamlit dashboard with daily GitHub Actions automation.**
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue)
 ![PySpark](https://img.shields.io/badge/PySpark-3.5-orange)
@@ -26,7 +26,7 @@
 
 ## 🧠 Overview
 Fully automated data engineering pipeline for Pakistan's banking sector analysis.
-Tracks **20 banks** listed on PSX, ingests live stock data daily via **Yahoo Finance API**, processes it with **PySpark**, and visualizes insights on an interactive **Streamlit dashboard** — all triggered automatically via **GitHub Actions**.
+Tracks **20 banks** listed on PSX, ingests live stock data daily via **Yahoo Finance API**, processes it with **PySpark**, and visualizes insights on an interactive **Streamlit dashboard** - all triggered automatically via **GitHub Actions**.
 
 ---
 
