@@ -54,10 +54,10 @@ jobs:
         # Only commit/push if something changed
         if git diff --cached --quiet; then
           echo "No changes to commit."
-          exit 0;
+          exit 0
         fi
 
-        git commit -m "Auto-update PSX data 2026-03-13"
+        git commit -m "Auto-update PSX data $(date '+%Y-%m-%d')"
 
         # Sync with remote main to avoid non-fast-forward push failures
         git fetch origin main
