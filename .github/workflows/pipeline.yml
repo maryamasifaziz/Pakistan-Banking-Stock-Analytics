@@ -54,14 +54,14 @@ jobs:
         # Only commit/push if something changed
         if git diff --cached --quiet; then
           echo "No changes to commit."
-          exit 0
+          exit 0;
         fi
 
-        git commit -m "Auto-update PSX data $(date '+%Y-%m-%d')"
+        git commit -m "Auto-update PSX data 2026-03-13"
 
         # Sync with remote main to avoid non-fast-forward push failures
         git fetch origin main
-        git rebase origin/main
+        git rebase origin/main || { echo "Rebase failed. Please check for conflicts."; exit 1; }
 
         # Push explicitly to main
-        git push origin HEAD:main
+        git push origin HEAD:main || { echo "Push failed. Please check for conflicts."; exit 1; }
