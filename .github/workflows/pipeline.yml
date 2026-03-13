@@ -9,6 +9,11 @@ on:
 permissions:
   contents: write
 
+# Prevent overlapping runs from fighting over main
+concurrency:
+  group: psx-daily-pipeline
+  cancel-in-progress: false
+
 jobs:
   run-pipeline:
     runs-on: ubuntu-latest
@@ -53,4 +58,10 @@ jobs:
         fi
 
         git commit -m "Auto-update PSX data $(date '+%Y-%m-%d')"
-        git push origin HEAD
+
+        # Sync with remote main to avoid non-fast-forward push failures
+        git fetch origin main
+        git rebase origin/main
+
+        # Push explicitly to main
+        git push origin HEAD:main
