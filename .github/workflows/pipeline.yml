@@ -19,49 +19,65 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        persist-credentials: true
-        fetch-depth: 0
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.10'
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
 
-    - name: Install Java (required for PySpark)
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y default-jdk
+      - name: Install Java (required for PySpark)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y default-jdk
 
-    - name: Install Python dependencies
-      run: pip install -r requirements.txt
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
 
-    - name: Run ingestion
-      run: python src/ingest.py
+      - name: Run ingestion
+        run: python src/ingest.py
 
-    - name: Run transformations
-      run: python src/transform.py
+      - name: Run transformations
+        run: python src/transform.py
 
-    - name: Commit updated data
-      run: |
-        git config user.email "github-actions[bot]@users.noreply.github.com"
-        git config user.name "github-actions[bot]"
+      - name: Commit updated data (rebase + push retry)
+        shell: bash
+        run: |
+          set -euo pipefail
 
-        git add data/
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
 
-        # Only commit/push if something changed
-        if git diff --cached --quiet; then
-          echo "No changes to commit."
-          exit 0
-        fi
+          git add data/
 
-        git commit -m "Auto-update PSX data $(date '+%Y-%m-%d')"
+          # Only commit/push if something changed
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
 
-        # Sync with remote main to avoid non-fast-forward push failures
-        git fetch origin main
-        git rebase origin/main || { echo "Rebase failed. Please check for conflicts."; exit 1; }
+          git commit -m "Auto-update PSX data $(date '+%Y-%m-%d')"
 
-        # Push explicitly to main
-        git push origin HEAD:main || { echo "Push failed. Please check for conflicts."; exit 1; }
+          # Handle non-fast-forward races by retrying fetch+rebase+push
+          for attempt in 1 2 3; do
+            echo "Attempt $attempt: fetch + rebase onto origin/main"
+            git fetch origin main
+            git rebase origin/main || { echo "Rebase failed (conflict)."; exit 1; }
+
+            echo "Attempt $attempt: push to main"
+            if git push origin HEAD:main; then
+              echo "Push succeeded."
+              exit 0
+            fi
+
+            echo "Push failed (likely remote advanced). Retrying..."
+            # small backoff helps if multiple automations are pushing
+            sleep 3
+          done
+
+          echo "Push failed after 3 attempts."
+          exit 1
