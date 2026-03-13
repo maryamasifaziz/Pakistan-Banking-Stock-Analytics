@@ -11,11 +11,10 @@ import pandas as pd
 from datetime import datetime
 
 def get_latest_raw_file():
-    """Get the latest raw CSV file from local data/raw folder"""
     files = glob.glob('data/raw/psx_raw_*.csv')
     if not files:
         raise FileNotFoundError("No raw data found. Run ingest.py first.")
-    latest = sorted(files, key=os.path.getctime)[-1]
+    latest = sorted(files)[-1]  # sorts alphabetically = chronologically by date
     print(f"Using file: {latest}")
     return latest
 
