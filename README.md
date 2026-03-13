@@ -118,4 +118,4 @@ Pipeline runs **automatically every day at 11PM PKT** via GitHub Actions — fet
 ## 👤 Author
 **Maryam Asif**  
 🎓 FAST NUCES  
-🔗 [LinkedIn](https://linkedin.com/maryamasifaziz) | [GitHub](https://github.com/maryamasifaziz)
+🔗 [LinkedIn](www.linkedin.com/in/maryamasifaziz) | [GitHub](https://github.com/maryamasifaziz)
