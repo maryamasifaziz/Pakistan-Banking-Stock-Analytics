@@ -5,11 +5,9 @@ on:
     - cron: '0 18 * * *'  # Runs daily at 11PM PKT
   workflow_dispatch:
 
-# IMPORTANT: allow GITHUB_TOKEN to push commits
 permissions:
   contents: write
 
-# Prevent overlapping runs from fighting over main
 concurrency:
   group: psx-daily-pipeline
   cancel-in-progress: false
@@ -54,15 +52,13 @@ jobs:
 
           git add data/
 
-          # Only commit/push if something changed
           if git diff --cached --quiet; then
             echo "No changes to commit."
             exit 0
           fi
 
-          git commit -m "Auto-update PSX data $(date '+%Y-%m-%d')"
+          git commit -m "Auto-update PSX data $(TZ=Asia/Karachi date '+%Y-%m-%d')"
 
-          # Handle non-fast-forward races by retrying fetch+rebase+push
           for attempt in 1 2 3; do
             echo "Attempt $attempt: fetch + rebase onto origin/main"
             git fetch origin main
@@ -75,7 +71,6 @@ jobs:
             fi
 
             echo "Push failed (likely remote advanced). Retrying..."
-            # small backoff helps if multiple automations are pushing
             sleep 3
           done
 
